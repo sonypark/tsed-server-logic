@@ -7,7 +7,9 @@ var express_1 = __importDefault(require("express"));
 var AppRouter_1 = require("./AppRouter");
 var cookie_session_1 = __importDefault(require("cookie-session"));
 require("./controllers/RootController");
+require("./controllers/LoginController");
 var app = express_1.default();
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use(cookie_session_1.default({ keys: ['stayHungry'] }));
 app.use(AppRouter_1.AppRouter.getInstance());
 app.listen(3000, function () {
