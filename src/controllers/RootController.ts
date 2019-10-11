@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { get, controller } from '../decorators';
+import { get, controller, use } from '../decorators';
 
-const ruquireAuth = (req: Request, res: Response, next: NextFunction) => {
-  if(req.session && req.session.loggedIn) {
+const requireAuth = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session && req.session.loggedIn) {
     next();
-    return
+    return;
   }
-}
+};
 
 @controller('')
 class RootController {
@@ -27,5 +27,11 @@ class RootController {
       </div>
       `);
     }
+  }
+
+  @get('/protected')
+  @use(requireAuth)
+  getProtected(req: Request, res: Response) {
+    res.send('Logged in, this is a protected route');
   }
 }

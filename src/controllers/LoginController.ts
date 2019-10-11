@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { get, controller, use, post } from '../decorators';
+import { get, controller, use, post, bodyValidator } from '../decorators';
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
   console.log('Request was made!');
@@ -27,6 +27,7 @@ class LoginController {
   }
 
   @post('/login')
+  @bodyValidator('email', 'password')
   postLogin(req: Request, res: Response) {
     const { email, password } = req.body;
 
