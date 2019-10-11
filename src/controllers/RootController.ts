@@ -1,6 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { get, controller } from '../decorators';
 
+const ruquireAuth = (req: Request, res: Response, next: NextFunction) => {
+  if(req.session && req.session.loggedIn) {
+    next();
+    return
+  }
+}
+
 @controller('')
 class RootController {
   @get('/')
